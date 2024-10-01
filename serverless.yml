@@ -1,0 +1,110 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: linnjoha
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: quiztopia
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: eu-north-1
+  iam:
+    role: arn:aws:iam::343218181625:role/gateway-role
+
+build:
+  esbuild:
+    minify: true
+
+package:
+  individually: true
+
+functions:
+  signup:
+    handler: functions/signup/index.handler
+    events:
+      - httpApi:
+          path: /api/auth/signup
+          method: post
+  login:
+    handler: functions/login/index.handler
+    events:
+      - httpApi:
+          path: /api/auth/login
+          method: post
+  getAllQuiz:
+    handler: functions/getAllQuiz/index.handler
+    events:
+      - httpApi:
+          path: /api/quiz
+          method: get
+  getOneQuiz:
+    handler: functions/getOneQuiz/index.handler
+    events:
+      - httpApi:
+          path: /api/quiz/{quizId}
+          method: get
+  addQuiz:
+    handler: functions/addNewQuiz/index.handler
+    events:
+      - httpApi:
+          path: /api/quiz
+          method: post
+  updateQuiz:
+    handler: functions/updateQuiz/index.handler
+    events:
+      - httpApi:
+          path: /api/quiz/{quizId}
+          method: put
+  addToLeaderboard:
+    handler: functions/addToLeaderboard/index.handler
+    events:
+      - httpApi:
+          path: /api/quiz/leaderboard
+          method: put
+  getLeaderboard:
+    handler: functions/getLeaderboard/index.handler
+    events:
+      - httpApi:
+          path: /api/quiz/{quizId}/leaderboard
+          method: get
+  deleteQuiz:
+    handler: functions/deleteQuiz/index.handler
+    events:
+      - httpApi:
+          path: /api/quiz/{quizId}
+          method: delete
+
+resources:
+  Resources:
+    quiztopiaUsersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: quiztopiaUsersTable
+        AttributeDefinitions:
+          - AttributeName: userName
+            AttributeType: S
+        KeySchema:
+          - AttributeName: userName
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+    quiztopiaQuizTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: quiztopiaQuizTable
+        AttributeDefinitions:
+          - AttributeName: quizId
+            AttributeType: S
+          - AttributeName: creator
+            AttributeType: S
+        KeySchema:
+          - AttributeName: quizId
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        GlobalSecondaryIndexes:
+          - IndexName: creatorQuizIndex
+            KeySchema:
+              - AttributeName: creator
+                KeyType: HASH
+              - AttributeName: quizId
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
