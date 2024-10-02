@@ -4,6 +4,7 @@ const { v4: uuidv4 } = require("uuid");
 const { hashPassword } = require("../../utils/bcrypt");
 const { sendResponse, sendError } = require("../../responses");
 
+//lägga till user till db
 const addUser = async (user) => {
   try {
     const command = new PutCommand({
@@ -22,6 +23,7 @@ const addUser = async (user) => {
     return { success: false };
   }
 };
+//validering så att userName blir unikt
 const isThereAUserByUserName = async (userName) => {
   try {
     const command = new GetCommand({
@@ -46,26 +48,28 @@ const handler = middy().handler(async (event) => {
       return sendError(400, { message: "Username and password is required" });
     }
     const id = uuidv4();
-    //kolla så att userName är unikt
+    if (typeof userName != "string" || typeof password != "string") {
+      return sendError(400, "username and password requires string values");
+    }
+    const isUserNameAvailable = await isThereAUserByUserName(userName);
+    if (!isUserNameAvailable) {
+      return sendError(400, "userName not available");
+    }
     const hashedPassword = await hashPassword(password);
     const newUser = {
       userId: id,
       userName: userName,
       password: hashedPassword,
     };
-    const isUserNameAvailable = await isThereAUserByUserName(userName);
-    if (!isUserNameAvailable) {
-      return sendError(400, "userName not available");
-    }
+
     const response = await addUser(newUser);
     if (!response.success) {
       return sendError(500, "Could not add user to db");
     }
 
-    console.log(response.Item);
     return sendResponse({ userName, userId: id });
   } catch (error) {
-    return sendError(500, { message: "Could not add user to databse" });
+    return sendError(500, { message: "Could not add user to database" });
   }
 });
 

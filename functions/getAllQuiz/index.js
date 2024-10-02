@@ -20,7 +20,7 @@ const getAllQuiz = async () => {
     return { success: false };
   }
 };
-
+//hämtar alla quiz och skickar tillbaka med quiznamn och vem som skapat
 const handler = middy().handler(async (event) => {
   try {
     const response = await getAllQuiz();

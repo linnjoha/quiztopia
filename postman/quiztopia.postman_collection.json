@@ -1,0 +1,277 @@
+{
+	"info": {
+		"_postman_id": "945adb76-bc57-4e96-a4cb-9a47d12fc5e3",
+		"name": "quiztopia",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33893148"
+	},
+	"item": [
+		{
+			"name": "signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\":\"linn\",\r\n    \"password\":\"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://bm8zsx77e1.execute-api.eu-north-1.amazonaws.com/api/auth/signup",
+					"protocol": "https",
+					"host": [
+						"bm8zsx77e1",
+						"execute-api",
+						"eu-north-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"api",
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\":\"linn\",\r\n    \"password\":\"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://bm8zsx77e1.execute-api.eu-north-1.amazonaws.com/api/auth/login",
+					"protocol": "https",
+					"host": [
+						"bm8zsx77e1",
+						"execute-api",
+						"eu-north-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addQuiz",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImM0ZjQ1YWJkLWIxOTgtNDg3Ny1iZTBiLTYwZWRiZDk2ZDJlMyIsInVzZXJOYW1lIjoibGlubiIsImlhdCI6MTcyNzc3MDA2MCwiZXhwIjoxNzI3NzczNjYwfQ.rUcMlhfjkBBKLqaoZ_H-brMTrBbZ_7IVC8D1IzvGXwU",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"quizName\":\"Vessigebro\",\r\n\"questions\":[\r\n    {\"question\":\"En lekplats. Den är efterkallad efter en grönsak, vilken?\", \"answer\":\"gurka\",\"location\":{ \"longitude\":\"786234587\", \"latitude\":\"23456167128\"}},\r\n    {\"question\":\"En möteslokal. Namnet på den plats där man möts och dansar?\", \"answer\":\"ätrasalen\",\"location\":{ \"longitude\":\"786234587\", \"latitude\":\"23456167128\"}},\r\n    {\"question\":\"En affär. Tre stycken röda bokstäver, vad heter butiken?\", \"answer\":\"ICA\",\"location\":{ \"longitude\":\"786234587\", \"latitude\":\"23456167128\"}}\r\n\r\n]\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://bm8zsx77e1.execute-api.eu-north-1.amazonaws.com/api/quiz",
+					"protocol": "https",
+					"host": [
+						"bm8zsx77e1",
+						"execute-api",
+						"eu-north-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"api",
+						"quiz"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getOneQuiz",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://bm8zsx77e1.execute-api.eu-north-1.amazonaws.com/api/quiz/975dfcd2-f56d-4b37-a85a-6915511c0e8b",
+					"protocol": "https",
+					"host": [
+						"bm8zsx77e1",
+						"execute-api",
+						"eu-north-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"api",
+						"quiz",
+						"975dfcd2-f56d-4b37-a85a-6915511c0e8b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAlltQuiz",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://bm8zsx77e1.execute-api.eu-north-1.amazonaws.com/api/quiz",
+					"protocol": "https",
+					"host": [
+						"bm8zsx77e1",
+						"execute-api",
+						"eu-north-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"api",
+						"quiz"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateQuestions",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImM0ZjQ1YWJkLWIxOTgtNDg3Ny1iZTBiLTYwZWRiZDk2ZDJlMyIsInVzZXJOYW1lIjoibGlubiIsImlhdCI6MTcyNzc3MjQ3NSwiZXhwIjoxNzI3Nzc2MDc1fQ.seIUMIGDV5XQ8iuIvBJhzdD5mSmv4tM1XJccxWFcUlI",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"questions\":[\r\n        {\"question\":\"En frisersalong, vad heter den?\", \"answer\":\"salong cissi\", \"location\":{\"longitude\":\"12349786\", \"latitude\":\"98342732789\"}}\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://bm8zsx77e1.execute-api.eu-north-1.amazonaws.com/api/quiz/975dfcd2-f56d-4b37-a85a-6915511c0e8b",
+					"protocol": "https",
+					"host": [
+						"bm8zsx77e1",
+						"execute-api",
+						"eu-north-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"api",
+						"quiz",
+						"975dfcd2-f56d-4b37-a85a-6915511c0e8b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addToLeaderboard",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImM0ZjQ1YWJkLWIxOTgtNDg3Ny1iZTBiLTYwZWRiZDk2ZDJlMyIsInVzZXJOYW1lIjoibGlubiIsImlhdCI6MTcyNzc3MzA5MSwiZXhwIjoxNzI3Nzc2NjkxfQ.nRHtf2BMe-KOlGoFI54QALmqxHMT3hghaQb2tGefLio",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"quizId\":\"975dfcd2-f56d-4b37-a85a-6915511c0e8b\",\r\n    \"score\":4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://bm8zsx77e1.execute-api.eu-north-1.amazonaws.com/api/quiz/leaderboard",
+					"protocol": "https",
+					"host": [
+						"bm8zsx77e1",
+						"execute-api",
+						"eu-north-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"api",
+						"quiz",
+						"leaderboard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getLeaderBoard",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "deleteQuiz",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImM0ZjQ1YWJkLWIxOTgtNDg3Ny1iZTBiLTYwZWRiZDk2ZDJlMyIsInVzZXJOYW1lIjoibGlubiIsImlhdCI6MTcyNzc3NTgxNiwiZXhwIjoxNzI3Nzc5NDE2fQ.OLCzReSXZUgZ2k7kdbUJiPSr8kwLsCDzE0gv39bn7Yc",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://bm8zsx77e1.execute-api.eu-north-1.amazonaws.com/api/quiz/f90973e3-f9b8-48da-928e-c819d5b60d3d",
+					"protocol": "https",
+					"host": [
+						"bm8zsx77e1",
+						"execute-api",
+						"eu-north-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"api",
+						"quiz",
+						"f90973e3-f9b8-48da-928e-c819d5b60d3d"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

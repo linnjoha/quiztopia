@@ -31,14 +31,16 @@ const handler = middy()
         );
       }
       const quizId = event.pathParameters.quizId;
+      //hämtar quiz från db
       const response = await getLeaderBoard(quizId);
       if (!response.success) {
         return sendError(500, "failed to get leaderboard from db");
       }
-
+      //skapar en ny sorterad array baserad på score, där högsta värdet är först
       const sortedLeaderBoard = response.Item.leaderboard.sort(
         (a, b) => b.score - a.score
       );
+      //sätter en maxlängd på leaderboard till fem
       const topFive = sortedLeaderBoard.slice(0, 5);
 
       return sendResponse({

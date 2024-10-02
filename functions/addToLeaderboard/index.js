@@ -57,6 +57,13 @@ const handler = middy()
       if (!quizId || !score) {
         return sendError(400, "both quizId and score is required");
       }
+      //kollar så att quiz med angivet quizid finns
+      const response = await getOneQuiz(quizId);
+
+      if (!response.success) {
+        return sendError(400, "Couln't find quiz by given quizId");
+      }
+      //validering av key values
       const isValidKeys = validateLeaderboardBody(quizId, score);
       const expectedFormat = {
         quizId: "string",
@@ -65,11 +72,7 @@ const handler = middy()
       if (!isValidKeys) {
         return sendError(400, "invalid types in body", expectedFormat);
       }
-      const response = await getOneQuiz(quizId);
-
-      if (!response.success) {
-        return sendError(400, "Couln't find quiz by given quizId");
-      }
+      //uppdaterar leaderboardarray med data från body och token
       const leaderboardArray = response.Item.leaderboard;
       const leaderboardData = {
         score: score,

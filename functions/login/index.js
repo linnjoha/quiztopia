@@ -4,6 +4,7 @@ const { generateToken } = require("../../middleware/auth");
 const { comparePassword } = require("../../utils/bcrypt");
 const { sendResponse, sendError } = require("../../responses");
 
+//hämtar user med angivet username från body
 const findUser = async (userName) => {
   try {
     const params = new GetCommand({
@@ -24,12 +25,15 @@ const findUser = async (userName) => {
 const handler = middy().handler(async (event) => {
   try {
     const { userName, password } = JSON.parse(event.body);
-    console.log("id password", password, userName);
+
     if (!userName || !password) {
       return sendError(400, { message: "Username and password is required" });
     }
+    if (typeof userName != "string" || typeof password != "string") {
+      return sendError(400, "username and password requires string values");
+    }
     const user = await findUser(userName);
-    console.log(user);
+
     if (!user) {
       return sendError(404, "user not found");
     }

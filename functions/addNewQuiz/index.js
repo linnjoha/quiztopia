@@ -3,44 +3,9 @@ const middy = require("@middy/core");
 const { validateToken } = require("../../middleware/auth");
 const { sendResponse, sendError } = require("../../responses");
 const { v4: uuid } = require("uuid");
-const {
-  validateKeys,
-  validateQuestionKeys,
-} = require("../../validation/validation");
-//validation of keys in question
-// const validateQuestionKeys = (question) => {
-//   const allowedKeys = ["question", "answer", "location"];
-//   console.log("question", question);
-//   if (!question.question || !question.answer || !question.location) {
-//     return false;
-//   }
-//   for (const key of allowedKeys) {
-//     if (!(key in question)) return false;
-//   }
-//   return (
-//     typeof question.question === "string" &&
-//     typeof question.answer === "string" &&
-//     typeof question.location === "object"
-//   );
-// };
-// //validate the keys from body
-// const validateKeys = (quizName, questions) => {
-//   if (typeof quizName !== "string") {
-//     return false;
-//   }
-//   const isArray = Array.isArray(questions);
-//   console.log("isarray", isArray);
-//   if (!isArray) {
-//     return false;
-//   }
-//   const isValidQuestionKeys = questions.every(validateQuestionKeys);
-//   console.log("isvalidquestionkeys", isValidQuestionKeys);
-//   if (!isValidQuestionKeys) {
-//     return false;
-//   }
-//   return true;
-// };
+const { validateKeys } = require("../../validation/validation");
 
+//lägger till nytt quiz med värden från body, token samt skapar en tom array för leaderboard
 const addQuiz = async (quiz) => {
   try {
     const leaderboard = [];
@@ -76,9 +41,9 @@ const handler = middy()
         );
       }
       const userName = event.userName;
+
       const { quizName, questions } = JSON.parse(event.body);
-      console.log("eventbody", event.body);
-      console.log(quizName, questions);
+
       if (!quizName || !questions) {
         return sendError(400, "both quizname and questions are required");
       }

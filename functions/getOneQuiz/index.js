@@ -20,6 +20,7 @@ const getOneQuiz = async (id) => {
   }
 };
 
+//hämtar ett quiz med quizId och skickar tillbaka quiznamn samt frågor
 const handler = middy().handler(async (event) => {
   try {
     const quizId = event.pathParameters.quizId;

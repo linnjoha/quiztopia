@@ -10,60 +10,93 @@ authorName: 'Serverless, Inc.'
 authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4'
 -->
 
-# Serverless Framework Node HTTP API on AWS
+# Quiztopia API
 
-This template demonstrates how to make a simple HTTP API with Node.js running on AWS Lambda and API Gateway using the Serverless Framework.
+## Linn Johansson
 
-This template does not include any kind of persistence (database). For more advanced examples, check out the [serverless/examples repository](https://github.com/serverless/examples/) which includes Typescript, Mongo, DynamoDB and other examples.
+## Endpoints:
 
-## Usage
+### POST - https://bm8zsx77e1.execute-api.eu-north-1.amazonaws.com/api/auth/signup
 
-### Deployment
+body:{
+"userName":"",
+"password":""
+}
 
-In order to deploy the example, you need to run the following command:
+### POST - https://bm8zsx77e1.execute-api.eu-north-1.amazonaws.com/api/auth/login
 
-```
-serverless deploy
-```
+body:{
+"userName":"",
+"password":""
+}
 
-After running deploy, you should see output similar to:
+### GET - https://bm8zsx77e1.execute-api.eu-north-1.amazonaws.com/api/quiz
 
-```
-Deploying "serverless-http-api" to stage "dev" (us-east-1)
+### GET - https://bm8zsx77e1.execute-api.eu-north-1.amazonaws.com/api/quiz/{quizId}
 
-✔ Service deployed to stack serverless-http-api-dev (91s)
+### POST - https://bm8zsx77e1.execute-api.eu-north-1.amazonaws.com/api/quiz
 
-endpoint: GET - https://xxxxxxxxxx.execute-api.us-east-1.amazonaws.com/
-functions:
-  hello: serverless-http-api-dev-hello (1.6 kB)
-```
+headers Authorization: jwt token
+body:{"quizName":"",
+"questions":[
+{"question":"", "answer":"","location":{ "longitude":"", "latitude":""}},
+{"question":"", "answer":"","location":{ "longitude":"", "latitude":""}},
+{"question":"", "answer":"","location":{ "longitude":"", "latitude":""}}
+]
+}
 
-_Note_: In current form, after deployment, your API is public and can be invoked by anyone. For production deployments, you might want to configure an authorizer. For details on how to do that, refer to [HTTP API (API Gateway V2) event docs](https://www.serverless.com/framework/docs/providers/aws/events/http-api).
+### PUT - https://bm8zsx77e1.execute-api.eu-north-1.amazonaws.com/api/quiz/{quizId}
 
-### Invocation
+headers Authorization: jwt token
+body:{
+"questions":[
+{"question":"", "answer":"", "location":{"longitude":"", "latitude":""}},
+{"question":"", "answer":"", "location":{"longitude":"", "latitude":""}}
+]
+}
 
-After successful deployment, you can call the created application via HTTP:
+### PUT - https://bm8zsx77e1.execute-api.eu-north-1.amazonaws.com/api/quiz/leaderboard
 
-```
-curl https://xxxxxxx.execute-api.us-east-1.amazonaws.com/
-```
+headers Authorization: jwt token
+body:{
+"quizId":"",
+"score":number
+}
 
-Which should result in response similar to:
+### GET - https://bm8zsx77e1.execute-api.eu-north-1.amazonaws.com/api/quiz/{quizId}/leaderboard
 
-```json
-{ "message": "Go Serverless v4! Your function executed successfully!" }
-```
+headers Authorization: jwt token
 
-### Local development
+### DELETE - https://bm8zsx77e1.execute-api.eu-north-1.amazonaws.com/api/quiz/{quizId}
 
-The easiest way to develop and test your function is to use the `dev` command:
+headers Authorization: jwt token
 
-```
-serverless dev
-```
+## valideringar
 
-This will start a local emulator of AWS Lambda and tunnel your requests to and from AWS Lambda, allowing you to interact with your function as if it were running in the cloud.
+### signup
 
-Now you can invoke the function as before, but this time the function will be executed locally. Now you can develop your function locally, invoke it, and see the results immediately without having to re-deploy.
+undersöker så att username inte är upptagen samt att username och password har korrekt värde
 
-When you are done developing, don't forget to run `serverless deploy` to deploy the function to the cloud.
+### login
+
+validering på värdet från body samt att password stämmer överens
+
+### addquiz
+
+validering på värden från body, samt token från header
+
+### updatequiz
+
+validering på värden från body, samt token från header, även att username från token är samma som creator på qiuz
+
+### deletequiz
+
+validering på token från header, samt att username från token är densamma som creator på quiz
+
+### addToLeaderboard
+
+validering på värden från body, samt token från header
+
+### getLeaderboard
+
+validering på token, då jag anser att man behöver vara inloggad för att se den typen av information på quiz

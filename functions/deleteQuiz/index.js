@@ -2,6 +2,7 @@ const { docClient, QueryCommand, DeleteCommand } = require("../../service/db");
 const middy = require("@middy/core");
 const { validateToken } = require("../../middleware/auth");
 const { sendResponse, sendError } = require("../../responses");
+const { validateUsersQuiz } = require("../../validation/validation");
 
 const removeQuiz = async (quizId) => {
   try {
@@ -18,32 +19,7 @@ const removeQuiz = async (quizId) => {
   }
 };
 
-const getOneQuiz = async (userName, quizId) => {
-  try {
-    const command = new QueryCommand({
-      TableName: "quiztopiaQuizTable",
-      IndexName: "creatorQuizIndex",
-      KeyConditionExpression: "creator = :creator AND quizId = :quizId",
-      ExpressionAttributeValues: {
-        ":creator": userName,
-        ":quizId": quizId,
-      },
-      ProjectionExpression: "quizName, creator, quizId, questions",
-    });
-    const { Items } = await docClient.send(command);
-    console.log(JSON.stringify(Items, null, 2));
-    console.log("items", Items);
-    if (!Items) {
-      return { success: false };
-    }
-
-    return { success: true, Items };
-  } catch (error) {
-    console.log(error);
-    return false;
-  }
-};
-
+//tar bort quiz från db
 const handler = middy()
   .use(validateToken)
   .handler(async (event) => {
@@ -55,7 +31,8 @@ const handler = middy()
         );
       }
       const quizId = event.pathParameters.quizId;
-      const response = await getOneQuiz(event.userName, quizId);
+      //validering för att se om username från token är den som skapat quiz
+      const response = await validateUsersQuiz(event.userName, quizId);
       if (!response.success) {
         return sendError(
           400,
