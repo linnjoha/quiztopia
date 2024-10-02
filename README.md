@@ -18,17 +18,17 @@ authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4'
 
 ### POST - https://bm8zsx77e1.execute-api.eu-north-1.amazonaws.com/api/auth/signup
 
-body:{
-"userName":"",
-"password":""
-}
+- body:{
+  "userName":"",
+  "password":""
+  }
 
 ### POST - https://bm8zsx77e1.execute-api.eu-north-1.amazonaws.com/api/auth/login
 
-body:{
-"userName":"",
-"password":""
-}
+- body:{
+  "userName":"",
+  "password":""
+  }
 
 ### GET - https://bm8zsx77e1.execute-api.eu-north-1.amazonaws.com/api/quiz
 
@@ -36,40 +36,40 @@ body:{
 
 ### POST - https://bm8zsx77e1.execute-api.eu-north-1.amazonaws.com/api/quiz
 
-headers Authorization: jwt token
-body:{"quizName":"",
-"questions":[
-{"question":"", "answer":"","location":{ "longitude":"", "latitude":""}},
-{"question":"", "answer":"","location":{ "longitude":"", "latitude":""}},
-{"question":"", "answer":"","location":{ "longitude":"", "latitude":""}}
-]
-}
+- headers Authorization: jwt token
+- body:{"quizName":"",
+  "questions":[
+  {"question":"", "answer":"","location":{ "longitude":"", "latitude":""}},
+  {"question":"", "answer":"","location":{ "longitude":"", "latitude":""}},
+  {"question":"", "answer":"","location":{ "longitude":"", "latitude":""}}
+  ]
+  }
 
 ### PUT - https://bm8zsx77e1.execute-api.eu-north-1.amazonaws.com/api/quiz/{quizId}
 
-headers Authorization: jwt token
-body:{
-"questions":[
-{"question":"", "answer":"", "location":{"longitude":"", "latitude":""}},
-{"question":"", "answer":"", "location":{"longitude":"", "latitude":""}}
-]
-}
+- headers Authorization: jwt token
+- body:{
+  "questions":[
+  {"question":"", "answer":"", "location":{"longitude":"", "latitude":""}},
+  {"question":"", "answer":"", "location":{"longitude":"", "latitude":""}}
+  ]
+  }
 
 ### PUT - https://bm8zsx77e1.execute-api.eu-north-1.amazonaws.com/api/quiz/leaderboard
 
-headers Authorization: jwt token
-body:{
-"quizId":"",
-"score":number
-}
+- headers Authorization: jwt token
+- body:{
+  "quizId":"",
+  "score":number
+  }
 
 ### GET - https://bm8zsx77e1.execute-api.eu-north-1.amazonaws.com/api/quiz/{quizId}/leaderboard
 
-headers Authorization: jwt token
+- headers Authorization: jwt token
 
 ### DELETE - https://bm8zsx77e1.execute-api.eu-north-1.amazonaws.com/api/quiz/{quizId}
 
-headers Authorization: jwt token
+- headers Authorization: jwt token
 
 ## valideringar
 
