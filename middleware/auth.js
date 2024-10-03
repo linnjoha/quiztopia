@@ -8,7 +8,7 @@ const validateToken = {
 
       if (!token) throw new Error();
 
-      const data = jwt.verify(token, "zxcvb12345");
+      const data = jwt.verify(token, process.env.SECRET);
 
       request.event.id = data.id;
       request.event.userName = data.userName;
@@ -21,7 +21,7 @@ const validateToken = {
 
 //skapa token
 const generateToken = (id, userName) => {
-  return jwt.sign({ id: id, userName: userName }, "zxcvb12345", {
+  return jwt.sign({ id: id, userName: userName }, process.env.SECRET, {
     expiresIn: "1h",
   });
 };

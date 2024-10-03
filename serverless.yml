@@ -26,6 +26,8 @@ functions:
           method: post
   login:
     handler: functions/login/index.handler
+    environment:
+      SECRET: ett2treBulle
     events:
       - httpApi:
           path: /api/auth/login
@@ -44,30 +46,40 @@ functions:
           method: get
   addQuiz:
     handler: functions/addNewQuiz/index.handler
+    environment:
+      SECRET: ett2treBulle
     events:
       - httpApi:
           path: /api/quiz
           method: post
   updateQuiz:
     handler: functions/updateQuiz/index.handler
+    environment:
+      SECRET: ett2treBulle
     events:
       - httpApi:
           path: /api/quiz/{quizId}
           method: put
   addToLeaderboard:
     handler: functions/addToLeaderboard/index.handler
+    environment:
+      SECRET: ett2treBulle
     events:
       - httpApi:
           path: /api/quiz/leaderboard
           method: put
   getLeaderboard:
     handler: functions/getLeaderboard/index.handler
+    environment:
+      SECRET: ett2treBulle
     events:
       - httpApi:
           path: /api/quiz/{quizId}/leaderboard
           method: get
   deleteQuiz:
     handler: functions/deleteQuiz/index.handler
+    environment:
+      SECRET: ett2treBulle
     events:
       - httpApi:
           path: /api/quiz/{quizId}
